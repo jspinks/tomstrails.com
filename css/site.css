@@ -1,0 +1,310 @@
+/* Tomstrails — single stylesheet. No web fonts, no scripts, no external requests. */
+
+:root {
+  --bg: #f7f7f4;
+  --surface: #ffffff;
+  --text: #1b2420;
+  --muted: #5a6661;
+  --border: #dde2dc;
+  --accent: #1d6b4f;
+  --accent-text: #ffffff;
+  --store-bg: #000000;
+  --store-text: #ffffff;
+  --radius: 14px;
+  --wrap: 68rem;
+  --gap: clamp(1rem, 3vw, 2rem);
+  color-scheme: light dark;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #111614;
+    --surface: #1a211e;
+    --text: #e6ebe8;
+    --muted: #9aa6a0;
+    --border: #2c3632;
+    --accent: #5cc49a;
+    --accent-text: #0d1a14;
+    --store-bg: #000000;
+    --store-text: #ffffff;
+  }
+}
+
+*,
+*::before,
+*::after { box-sizing: border-box; }
+
+html {
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  font-size: 1.0625rem;
+  line-height: 1.6;
+}
+
+img { max-width: 100%; height: auto; display: block; }
+
+a { color: var(--accent); text-underline-offset: 0.15em; }
+a:hover { text-decoration-thickness: 2px; }
+:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; border-radius: 4px; }
+
+h1, h2, h3 { line-height: 1.2; margin: 0 0 0.5em; letter-spacing: -0.01em; }
+h1 { font-size: clamp(1.9rem, 5vw, 2.8rem); }
+h2 { font-size: clamp(1.35rem, 3vw, 1.75rem); }
+h3 { font-size: 1.15rem; }
+p { margin: 0 0 1em; }
+
+.wrap {
+  width: 100%;
+  max-width: var(--wrap);
+  margin: 0 auto;
+  padding: 0 var(--gap);
+}
+
+.skip {
+  position: absolute;
+  left: -9999px;
+}
+.skip:focus {
+  left: 1rem;
+  top: 1rem;
+  background: var(--surface);
+  padding: 0.5rem 1rem;
+  z-index: 10;
+}
+
+/* Header */
+
+.site-header {
+  border-bottom: 1px solid var(--border);
+  background: var(--surface);
+}
+.site-header .wrap {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem 1.5rem;
+  padding-top: 0.9rem;
+  padding-bottom: 0.9rem;
+}
+.wordmark {
+  font-weight: 700;
+  font-size: 1.25rem;
+  color: var(--text);
+  text-decoration: none;
+  letter-spacing: -0.02em;
+}
+.site-nav ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem 1.25rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.site-nav a {
+  color: var(--muted);
+  text-decoration: none;
+  font-weight: 500;
+}
+.site-nav a:hover,
+.site-nav a[aria-current="page"] { color: var(--text); }
+
+/* Sections */
+
+main { display: block; }
+.section { padding: clamp(2rem, 6vw, 4rem) 0; }
+.section + .section { padding-top: 0; }
+.lead { font-size: 1.15rem; color: var(--muted); max-width: 40rem; }
+
+/* App cards (home page) */
+
+.app-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 20rem), 1fr));
+  gap: var(--gap);
+}
+.app-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+.app-card p { margin: 0; }
+.app-card .actions { margin-top: auto; padding-top: 0.5rem; }
+
+.app-id {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+.app-id h2,
+.app-id h1 { margin: 0; }
+.app-id .subtitle { margin: 0; color: var(--muted); }
+
+/* App icon — an <img> once the real icon is supplied; the .placeholder variant shows initials until then */
+.app-icon {
+  flex: none;
+  width: 64px;
+  height: 64px;
+  border-radius: 22.5%;
+  border: 1px solid var(--border);
+  object-fit: cover;
+}
+.app-icon.large { width: 96px; height: 96px; }
+.app-icon.placeholder {
+  display: grid;
+  place-items: center;
+  background: var(--accent);
+  color: var(--accent-text);
+  font-weight: 700;
+  font-size: 1.1rem;
+}
+.app-icon.large.placeholder { font-size: 1.5rem; }
+
+/* Buttons */
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  align-items: center;
+}
+.button {
+  display: inline-block;
+  padding: 0.65rem 1.1rem;
+  border-radius: 10px;
+  font-weight: 600;
+  text-decoration: none;
+  border: 1px solid var(--border);
+  color: var(--text);
+  background: var(--surface);
+}
+.button:hover { border-color: var(--muted); }
+.button.store {
+  background: var(--store-bg);
+  color: var(--store-text);
+  border-color: var(--store-bg);
+}
+@media (prefers-color-scheme: dark) {
+  .button.store { border-color: #a6a6a6; }
+}
+
+/* App page hero */
+
+.app-hero {
+  display: grid;
+  gap: 1.25rem;
+}
+.app-hero .lead { margin: 1rem 0 0; }
+@media (min-width: 700px) {
+  .app-hero { grid-template-columns: 1fr auto; align-items: end; }
+}
+
+/* Feature list */
+
+.features {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 0.75rem 2rem;
+}
+@media (min-width: 700px) {
+  .features { grid-template-columns: 1fr 1fr; }
+}
+.features li {
+  padding-left: 1.6rem;
+  position: relative;
+}
+.features li::before {
+  content: "";
+  position: absolute;
+  left: 0.2rem;
+  top: 0.55em;
+  width: 0.6rem;
+  height: 0.6rem;
+  border-radius: 50%;
+  background: var(--accent);
+}
+
+.panel {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.5rem;
+}
+.panel > :last-child { margin-bottom: 0; }
+
+/* Screenshots: stacked on phones, side by side once two fit */
+
+.shots {
+  display: grid;
+  grid-template-columns: minmax(0, 320px);
+  justify-content: center;
+  gap: 1.5rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+@media (min-width: 560px) {
+  .shots {
+    grid-template-columns: repeat(auto-fill, 240px);
+    justify-content: start;
+  }
+}
+@media (min-width: 900px) {
+  .shots { grid-template-columns: repeat(auto-fill, 300px); }
+}
+.shots img,
+.shots .placeholder {
+  width: 100%;
+  height: auto;
+  border-radius: 18px;
+  border: 1px solid var(--border);
+}
+.shots .placeholder {
+  aspect-ratio: 9 / 19.5;
+  display: grid;
+  place-items: center;
+  background: var(--surface);
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+/* Prose pages (privacy) */
+
+.prose { max-width: 42rem; }
+.prose h2 { margin-top: 1.5em; }
+
+/* Footer */
+
+.site-footer {
+  border-top: 1px solid var(--border);
+  color: var(--muted);
+  font-size: 0.95rem;
+  padding: 2rem 0 3rem;
+}
+.site-footer p { margin: 0 0 0.5rem; }
+.site-footer a { color: var(--muted); }
+
+/* Clickable app name and icon on the home page cards */
+a.app-id {
+  color: inherit;
+  text-decoration: none;
+  border-radius: 8px;
+}
+a.app-id:hover h2 {
+  text-decoration: underline;
+  text-underline-offset: 0.15em;
+}
